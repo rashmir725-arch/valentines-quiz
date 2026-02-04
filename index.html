@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Valentine’s Day 💖</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #eef2f5;
+  padding: 30px;
+}
+.container {
+  max-width: 700px;
+  margin: auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+}
+.question {
+  display: none;
+}
+.question.active {
+  display: block;
+}
+.option {
+  display: block;
+  text-align: left;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.option:hover {
+  background: #f2f2f2;
+}
+.feedback {
+  margin-top: 15px;
+  font-size: 18px;
+}
+.correct {
+  background: #d4edda;
+}
+.wrong {
+  background: #f8d7da;
+}
+button {
+  margin-top: 20px;
+  padding: 10px 25px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.final-message {
+  font-size: 22px;
+  margin-top: 25px;
+  background: #ffe6f0;
+  padding: 20px;
+  border-radius: 10px;
+}
+.heart {
+  position: fixed;
+  bottom: 0;
+  font-size: 24px;
+  animation: floatUp 3s forwards;
+}
+@keyframes floatUp {
+  to {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>💖 A Little Quiz From My Heart 💖</h2>
+
+<!-- Q1 -->
+<div class="question active" data-answer="c">
+  <p>1. When did we meet first?</p>
+  <label class="option"><input type="radio" name="q1" value="a"> April 14, 2012</label>
+  <label class="option"><input type="radio" name="q1" value="b"> August 1, 2011</label>
+  <label class="option"><input type="radio" name="q1" value="c"> August 8, 2011</label>
+  <div class="feedback"></div>
+  <button onclick="nextQuestion()">Next</button>
+</div>
+
+<!-- Q2 -->
+<div class="question" data-answer="a">
+  <p>2. What do you think is my greatest wish?</p>
+  <label class="option"><input type="radio" name="q2" value="a"> Vedhu ❤️</label>
+  <label class="option"><input type="radio" name="q2" value="b"> Paris with you & Vedhu</label>
+  <label class="option"><input type="radio" name="q2" value="c"> Being rich</label>
+  <div class="feedback"></div>
+  <button onclick="nextQuestion()">Next</button>
+</div>
+
+<!-- Q3 -->
+<div class="question" data-answer="b">
+  <p>3. Where was this picture taken?</p>
+  <img src="shared-image.jpg" alt="Our memory ❤️">
+  <label class="option"><input type="radio" name="q3" value="a"> Bus stop</label>
+  <label class="option"><input type="radio" name="q3" value="b"> Le Arabia, Kazhakootam</label>
+  <label class="option"><input type="radio" name="q3" value="c"> Somewhere else</label>
+  <div class="feedback"></div>
+  <button onclick="nextQuestion()">Next</button>
+</div>
+
+<!-- Q4 -->
+<div class="question" data-answer="c">
+  <p>4. Whom do you love the most in this world?</p>
+  <label class="option"><input type="radio" name="q4" value="a"> Mom</label>
+  <label class="option"><input type="radio" name="q4" value="b"> Vedhu</label>
+  <label class="option"><input type="radio" name="q4" value="c"> Rashmi 💕</label>
+  <div class="feedback"></div>
+  <button onclick="nextQuestion()">Next</button>
+</div>
+
+<!-- Q5 -->
+<div class="question" data-answer="a" id="finalQ">
+  <p>5. Will you be mine forever? 💍</p>
+  <label class="option"><input type="radio" name="q5" value="a"> Yes, always ❤️</label>
+  <label class="option"><input type="radio" name="q5" value="b"> Yes 🙂</label>
+  <label class="option"><input type="radio" name="q5" value="c"> Kind of 🤔</label>
+  <div class="feedback"></div>
+  <div class="final-message" style="display:none;">
+    💍 Happy Valentine’s Day, my forever ❤️<br>
+    I choose you. Every day. Every lifetime.
+  </div>
+</div>
+
+</div>
+
+<script>
+const quotesCorrect = [
+ "💖 Aww… you know me so well!",
+  "😍 Correct! My heart just did a happy dance!",
+  "✨ Spot on! Soulmate vibes only!",
+  "🥰 That’s why I fell for you!",
+  "💞 Yep! You read my heart perfectly.",
+  "😘 Nailed it! I’m smiling already.",
+  "💗 Correct! You still remember us 🥹",
+  "🌸 Exactly! This is why we work.",
+  "💫 Right answer! Love level unlocked.",
+  "❤️ You got it! Forever approved.",
+  "🤍 That answer came straight from love.",
+  "💕 Correct! My heart says YES too!",
+  "😍 You make this quiz too easy!",
+  "💍 Absolutely right — just like us.",
+  "🥹 Aww… this moment means everything."
+];
+
+const quotesWrong = [
+  "😜 Aww… close, but not quite!",
+  "😂 Haha nope, but I love the confidence!",
+  "🤭 Oops! That’s a cute wrong answer.",
+  "😅 Not this one — try listening to your heart!",
+  "🙈 Nope! Memory glitch detected.",
+  "😌 Wrong, but still charming!",
+  "🤣 Nice try! I’ll forgive you.",
+  "🤔 Hmm… are you guessing now?",
+  "😜 Almost! But love says otherwise.",
+  "😂 That answer tried… and failed cutely.",
+  "🤭 Wrong answer, right intentions!",
+  "🙃 Nope! But I like the effort.",
+  "😆 That was bold… and wrong!",
+  "😉 Wrong — but you’re still my favorite.",
+  "💭 Hmm… think harder, lover!"
+];
+
+let current = 0;
+const questions = document.querySelectorAll(".question");
+
+questions.forEach(q => {
+  q.querySelectorAll("input").forEach(input => {
+    input.addEventListener("change", () => {
+      const feedback = q.querySelector(".feedback");
+      const correct = q.dataset.answer;
+
+      q.querySelectorAll(".option").forEach(o =>
+        o.classList.remove("correct","wrong")
+      );
+
+      if (input.value === correct) {
+        input.parentElement.classList.add("correct");
+        feedback.innerText = quotesCorrect[Math.floor(Math.random()*quotesCorrect.length)];
+
+        if (q.id === "finalQ") {
+          q.querySelector(".final-message").style.display = "block";
+          for (let i=0;i<20;i++){
+            const h=document.createElement("div");
+            h.className="heart";
+            h.innerText="❤️";
+            h.style.left=Math.random()*100+"vw";
+            document.body.appendChild(h);
+            setTimeout(()=>h.remove(),3000);
+          }
+        }
+      } else {
+        input.parentElement.classList.add("wrong");
+        feedback.innerText = quotesWrong[Math.floor(Math.random()*quotesWrong.length)];
+      }
+    });
+  });
+});
+
+function nextQuestion(){
+  const q = questions[current];
+  if (!q.querySelector("input:checked")) {
+    alert("Answer this one first 😘");
+    return;
+  }
+  q.classList.remove("active");
+  current++;
+  if (questions[current]) {
+    questions[current].classList.add("active");
+  }
+}
+</script>
+
+</body>
+</html>
